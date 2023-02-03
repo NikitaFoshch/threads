@@ -18,6 +18,7 @@ public class Main {
 }
 
 class ThreadSymbol {
+    private int sleep = 100;
     private int count = 0;
 
     public synchronized void outputSymbolA(String symbol) {
@@ -29,7 +30,7 @@ class ThreadSymbol {
             }
         }
         try {
-            Thread.sleep(100);
+            Thread.sleep(sleep);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -47,7 +48,7 @@ class ThreadSymbol {
             }
         }
         try {
-            Thread.sleep(100);
+            Thread.sleep(sleep);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -66,7 +67,7 @@ class ThreadSymbol {
             }
         }
         try {
-            Thread.sleep(100);
+            Thread.sleep(sleep);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
