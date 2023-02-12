@@ -6,7 +6,7 @@ import java.util.concurrent.Semaphore;
 public class App {
 
     static final CountDownLatch START = new CountDownLatch(13);
-    static final int SIMPLEROAD = 50000;
+    static final int SIMPLE_ROAD = 50000;
     static final int TUNNEL = 5000;
     static final PlaceCar place = new PlaceCar();
     static final Semaphore semaphore = new Semaphore(3);
@@ -59,14 +59,14 @@ class Car implements Runnable {
         try {
             App.START.countDown();
             App.START.await();
-            Thread.sleep(App.SIMPLEROAD / speed);
+            Thread.sleep(App.SIMPLE_ROAD / speed);
             App.semaphore.acquire();
             System.out.println("Went into the tunnel - Car number: " + number);
             this.speed = (int) (Math.random() * (120 - 100) + 100);
             Thread.sleep(App.TUNNEL / speed);
             this.speed += 30;
             App.semaphore.release();
-            Thread.sleep(App.SIMPLEROAD / speed);
+            Thread.sleep(App.SIMPLE_ROAD / speed);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -1,16 +1,16 @@
 package ex_3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class App {
 
     public static void main(String[] args) {
 
-        DataList dataList = new DataList();
+        List<Integer> list = Collections.synchronizedList(new ArrayList<>());
 
-
-        final ListNumbers listNumbers = new ListNumbers(dataList);
+        final ListNumbers listNumbers = new ListNumbers(list);
         new Thread(listNumbers).start();
         new Thread(listNumbers).start();
 
@@ -20,32 +20,28 @@ public class App {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Size list: " + dataList.list.size());
+        System.out.println("Size list: " + list.size());
 
     }
 
 }
 
-class DataList {
-    List<Integer> list = new ArrayList<>();
-}
-
 class ListNumbers implements Runnable {
 
-    final DataList dataList;
+    final List<Integer> list;
 
-    public ListNumbers(DataList dataList) {
-        this.dataList = dataList;
+    public ListNumbers(List<Integer> list) {
+        this.list = list;
     }
 
 
     @Override
     public void run() {
-        synchronized (dataList) {
-            for (int i = 0; i < 100; i++) {
-                dataList.list.add(i);
-            }
+
+        for (int i = 0; i < 10000; i++) {
+            list.add(i);
         }
+
     }
 
 }

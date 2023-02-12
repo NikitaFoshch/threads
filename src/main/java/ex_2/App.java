@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class App {
 
@@ -35,7 +36,7 @@ public class App {
         Thread thread = new Thread(demon);
         thread.setDaemon(true);
         thread.start();
-        new Thread(myThread).start();
+        System.out.println(myThread.call());
 
 
     }
@@ -43,7 +44,7 @@ public class App {
 
 }
 
-class MyThread implements Runnable {
+class MyThread implements Callable<String> {
 
     private final int number;
     private final List<String> list;
@@ -56,12 +57,12 @@ class MyThread implements Runnable {
     }
 
     @Override
-    public void run() {
+    public String call() {
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
 
             demon.setActive();
-            System.out.println("\n" + "\n" + list.get(number - 1));
+            return ("\n" + "\n" + list.get(number - 1));
 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
