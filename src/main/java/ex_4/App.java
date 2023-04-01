@@ -59,14 +59,18 @@ class Car implements Runnable {
         try {
             App.START.countDown();
             App.START.await();
+
             Thread.sleep(App.SIMPLE_ROAD / speed);
+
             App.semaphore.acquire();
             System.out.println("Went into the tunnel - Car number: " + number);
             this.speed = (int) (Math.random() * (120 - 100) + 100);
             Thread.sleep(App.TUNNEL / speed);
             this.speed += 30;
             App.semaphore.release();
+
             Thread.sleep(App.SIMPLE_ROAD / speed);
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
